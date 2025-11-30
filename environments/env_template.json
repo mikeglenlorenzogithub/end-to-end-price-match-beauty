@@ -1,0 +1,47 @@
+{
+    "LLM": {
+        "GEMINI": {
+            "ACCOUNT": "",
+            "API_KEY": "",
+            "MODEL": "gemini-2.5-flash",
+            "RANGE_INPUT": 500
+        }
+    },
+    "EMBEDDING": {
+        "OPENAI": {
+            "ACCOUNT": "",
+            "API_KEY": "",
+            "MODEL": "text-embedding-3-small",
+            "RANGE_INPUT": 50
+        }
+    },
+    "CONTENT_DATE": "2025-11-26",
+    "VERSION": 1,
+    "SOURCE": {
+        "NAME": "sociolla",
+        "URL": "https://www.sociolla.com/140-skin-care?sort=-best-seller"
+    },
+    "TARGET": {
+        "1": {
+            "NAME": "guardian",
+            "URL": "https://www.guardianindonesia.co.id/skincare.html?page=1"
+        },
+        "2": {
+            "NAME": "watsons",
+            "URL": "https://www.watsons.co.id/id/lc/030000"
+        }
+    },
+    "SCRAPER": {
+        "REPARSE_ONLY": true,
+        "CONTINUE_SCRAPER": false
+    },
+    "CLEANING": {
+        "CONCAT_ONLY": true
+    },
+    "CLASSIFICATION": {
+        "GRID_SEARCH": false,
+        "LOAD_PIPELINE": true,
+        "IS_WEIGHT": true,
+        "IS_PCA": true
+    }
+}
