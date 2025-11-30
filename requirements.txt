@@ -1,0 +1,11 @@
+requests
+bs4
+pandas
+openpyxl
+google-genai
+RapidFuzz
+unidecode
+openai
+xgboost
+pyarrow
+recordlinkage
