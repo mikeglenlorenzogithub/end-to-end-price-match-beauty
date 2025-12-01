@@ -1,82 +1,86 @@
-# end-to-end-price-match-beauty
+# End-to-end Price Match Beauty Across Websites (Sociolla vs Guardian and Watsons)
 
-Medalion Architecture
-High-Level Medallion
-┌─────────────────────────────┐
-│       First Medallion       │
-│  (Scraper + LLM Enrichment) │
-└─────────────┬───────────────┘
-              │
-              │  Raw scraper snapshot → Parsed → Standardized Columns and Data Type
-              │
-              ▼
-┌─────────────────────────────┐
-│      Second Medallion       │
-│  (ML Ingestion + Matching)  │
-└─────────────┬───────────────┘
-              │
-              │  LLM enriched + cleaned values → Matched & Non matched products (ML ingestion still in development)
-              │
-              ▼
-┌─────────────────────────────┐
-│       Third Medallion       │
-│ (Price Benchmark & Metrics) │
-└─────────────┬───────────────┘
-              │
-              │  Price benchmark & Matching Overview → Preprocessed Visualization → Final visualization (still in development)
-              │
-              ▼
-┌─────────────────────────────┐
-│ High-Level Medallion / Gold │
-│   (Unified Final Dataset)   │
-└─────────────────────────────┘
+## Sample Excel Result
+![alt text](https://github.com/mikeglenlorenzogithub/end-to-end-price-match-beauty/blob/main/image/matched-1.png)
 
+![alt text](https://github.com/mikeglenlorenzogithub/end-to-end-price-match-beauty/blob/main/image/matched-2.png)
 
-Detailed view:
-
-First Medallion
-┌─────────┐
-│ Bronze  │  Raw scraper snapshot
-└────┬────┘
-     │
-┌────┴────┐
-│ Silver  │  Initial parsed scraper result
-└────┬────┘
-     │
-┌────┴────┐
-│  Gold   │  Standardize Columns and Data Type (Great Expectations and DataBase) TBI - currently still in local json
-└─────────┘
+## High-Level Medallion
+          ┌─────────────────────────────┐
+          │       First Medallion       │
+          │  (Scraper + LLM Enrichment) │
+          └─────────────┬───────────────┘
+                        │
+                        │  Raw scraper snapshot → Parsed → Standardized Columns and Data Type
+                        │
+                        ▼
+          ┌─────────────────────────────┐
+          │      Second Medallion       │
+          │  (ML Ingestion + Matching)  │
+          └─────────────┬───────────────┘
+                        │
+                        │  LLM enriched + cleaned values → Matched & Non matched products (ML ingestion still in development)
+                        │
+                        ▼
+          ┌─────────────────────────────┐
+          │       Third Medallion       │
+          │ (Price Benchmark & Metrics) │
+          └─────────────┬───────────────┘
+                        │
+                        │  Price benchmark & Matching Overview → Preprocessed Visualization → Final visualization (still in development)
+                        │
+                        ▼
+          ┌─────────────────────────────┐
+          │ High-Level Medallion / Gold │
+          │   (Unified Final Dataset)   │
+          └─────────────────────────────┘
 
 
-Second Medallion
-┌─────────┐
-│ Bronze  │  LLM enrichment (filled missing values) + cleaned values (lowercased, normalized, numeric in name separated by whitespace)
-└────┬────┘
-     │
-┌────┴────┐
-│ Silver  │  Matched & non-matched (Sociolla as base/source vs Guardian/Watsons as target, each pair separately)
-└────┬────┘
-     │
-┌────┴────┐
-│  Gold   │  Matched items/products across websites
-└─────────┘
+## Detailed view
+
+### First Medallion
+     ┌─────────┐
+     │ Bronze  │  Raw scraper snapshot
+     └────┬────┘
+          │
+     ┌────┴────┐
+     │ Silver  │  Initial parsed scraper result
+     └────┬────┘
+          │
+     ┌────┴────┐
+     │  Gold   │  Standardize Columns and Data Type (Great Expectations and DataBase) TBI - currently still in local json
+     └─────────┘
 
 
-Third Medallion (Still in Development)
-┌─────────┐
-│ Bronze  │  Matched Price benchmark & Overview of matched & non-matched
-└────┬────┘
-     │
-┌────┴────┐
-│ Silver  │  Metrics Overview/Preprocess Visualization
-└────┬────┘
-     │
-┌────┴────┐
-│  Gold   │  Final visualization
-└─────────┘
+### Second Medallion
+     ┌─────────┐
+     │ Bronze  │  LLM enrichment (filled missing values) + cleaned values (lowercased, normalized, numeric in name separated by whitespace)
+     └────┬────┘
+          │
+     ┌────┴────┐
+     │ Silver  │  Matched & non-matched (Sociolla as base/source vs Guardian/Watsons as target, each pair separately)
+     └────┬────┘
+          │
+     ┌────┴────┐
+     │  Gold   │  Matched items/products across websites
+     └─────────┘
 
 
-Flow Explanation:
+### Third Medallion (Still in Development)
+     ┌─────────┐
+     │ Bronze  │  Matched Price benchmark & Overview of matched & non-matched
+     └────┬────┘
+          │
+     ┌────┴────┐
+     │ Silver  │  Metrics Overview/Preprocess Visualization
+     └────┬────┘
+          │
+     ┌────┴────┐
+     │  Gold   │  Final visualization
+     └─────────┘
+
+
+## Flow Explanation
 1. First Medallion (Scraper + LLM)
     - Bronze → Silver → Gold
     - Collect raw data, parse, standardize columns and data type.
